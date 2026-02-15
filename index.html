@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Task Planner</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="topRow">
+          <div>
+            <h2>Today</h2>
+            <p id="todayLabel" class="mutedLine"></p>
+          </div>
+
+          <div class="topRight">
+            <div class="authState">
+              <span id="authBadge" class="badge">Offline</span>
+              <button id="topSignOut" class="danger" style="display: none">Sign out</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUTH (shown only when logged out) -->
+        <div id="authPanel" class="authInline" style="display: none">
+          <div class="small">Sign in to sync across devices.</div>
+          <div class="rowInline" style="margin-top: 10px">
+            <input id="email" type="email" placeholder="Email" />
+            <input id="password" type="password" placeholder="Password" />
+            <button id="signIn" type="button">Sign in</button>
+            <button id="signUp" class="secondary" type="button">Sign up</button>
+          </div>
+        </div>
+
+        <!-- TABS + ACTIONS -->
+        <div class="tabsTop">
+          <div id="tabs" class="tabs"></div>
+
+          <div class="tabsActions">
+            <button id="addSectionOpen" class="secondary" type="button">+ Section</button>
+            <button id="addTaskOpen" type="button">+ Task</button>
+            <button
+              id="deleteSectionTop"
+              class="iconDanger"
+              type="button"
+              title="Delete this section"
+              aria-label="Delete section"
+              style="display: none"
+            >
+              🗑
+            </button>
+          </div>
+        </div>
+
+        <!-- TASKS VIEW -->
+        <div id="tasksView">
+          <div class="tasks" id="tasksWrap"></div>
+        </div>
+
+        <!-- NOTES VIEW -->
+        <div id="notesView" style="display: none">
+          <h3>Notes</h3>
+          <textarea id="notesText" rows="12" placeholder="Type any thoughts of the day here…"></textarea>
+        </div>
+
+        <!-- LOGS VIEW -->
+        <div id="logsView" style="display: none">
+          <h3>Logs</h3>
+          <div id="todaySummaryBox" class="logSummaryBox"></div>
+          <div class="rowInline" style="margin: 10px 0; align-items: center">
+            <input type="date" id="logDate" />
+            <button id="loadDay" type="button">Load day</button>
+          </div>
+          <div id="logDaySummary" class="small" style="margin-bottom: 10px"></div>
+          <div id="logDayDetails"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION MODAL -->
+    <div id="sectionModal" class="modal">
+      <div class="card modalCard">
+        <div class="modalTop">
+          <h2 style="margin: 0">Add Section</h2>
+          <button id="sectionClose" class="secondary" type="button">Close</button>
+        </div>
+        <div style="margin-top: 14px">
+          <div class="small">Section name</div>
+          <input id="secTitleInput" type="text" placeholder="e.g. Hygiene" style="margin-top: 8px" />
+          <button id="sectionSave" style="margin-top: 12px" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELETE SECTION MODAL -->
+    <div id="deleteSectionModal" class="modal">
+      <div class="card modalCard">
+        <div class="modalTop">
+          <h2 style="margin: 0">Delete Section</h2>
+          <button id="deleteSectionClose" class="secondary" type="button">Close</button>
+        </div>
+        <div style="margin-top: 12px">
+          <div class="small" id="deleteSectionPrompt"></div>
+          <input
+            id="deleteSectionInput"
+            type="text"
+            placeholder="Type the section name to confirm"
+            style="margin-top: 8px"
+          />
+          <div style="display: flex; gap: 10px; margin-top: 12px">
+            <button id="deleteSectionConfirm" class="danger" type="button" disabled>Delete</button>
+            <button id="deleteSectionCancel" class="secondary" type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASK MODAL -->
+    <div id="taskModal" class="modal">
+      <div class="card modalCard">
+        <div class="modalTop">
+          <h2 id="taskWizardTitle" style="margin: 0">Add Task</h2>
+          <button id="taskClose" class="secondary" type="button">Close</button>
+        </div>
+
+        <div id="taskWizardBody" style="margin-top: 12px"></div>
+
+        <div class="wizardNav">
+          <button id="taskBack" class="secondary" type="button">Back</button>
+          <button id="taskNext" type="button">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
